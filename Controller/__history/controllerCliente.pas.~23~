@@ -1,0 +1,76 @@
+﻿unit controllerCliente;
+
+interface
+
+uses
+  modelCliente, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool,UFuncoesBanco, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait,
+  FireDAC.Phys.MySQLDef, FireDAC.Phys.MySQL, Data.DB, FireDAC.Comp.Client, System.SysUtils;
+
+Type TControllerCliente = class
+  private
+    vConexao : TFDConnection;
+    FModelCliente: TModelCliente;
+
+  public
+
+  property modelCliente : TModelCliente read FModelCliente write FModelCliente;
+
+  procedure ConsultarCliente(ACodigoCliente : Integer);
+
+
+    constructor Create(AConn : TFDConnection);
+    destructor Destroy;
+end;
+implementation
+
+
+
+{ TControllerCliente }
+
+procedure TControllerCliente.ConsultarCliente(ACodigoCliente : Integer);
+var LQryCons : TFDQuery;
+begin
+
+  if ACodigoCliente = 0 then
+    exit;
+
+  try
+    LQryCons := CriarQuery(vConexao);
+    Try
+      var LSql : string;
+      LSql  := 'SELECT Codigo,'+
+                       'Nome,'+
+                       'Cidade,'+
+                       'uf'+
+               ' FROM clientes'+
+                        ' Where codigo ='+inttostr(ACodigoCliente);
+      if ConsultaMySql(LQryCons,LSql) then
+      begin
+        FrmPedidoVenda.FModelCliente.NomeCliente := LQryCons.FieldByName('nome').AsString;
+        FrmPedidoVenda.FrmPedidoVenda.LModelCliente.modelCliente.Cidade      := LQryCons.FieldByName('cidade').AsString;
+        FrmPedidoVenda.FModelCliente.modelCliente.UF          := LQryCons.FieldByName('uf').AsString;
+      end;
+
+    Finally
+      FreeAndNil(LQryCons);
+    End;
+
+  except on e: exception do
+    raise exception.Create('Erro ao Carregar Cliente... ' + e.Message);
+  end;
+end;
+
+constructor TControllerCliente.Create(AConn: TFDConnection);
+begin
+   vConexao := AConn;
+
+end;
+
+destructor TControllerCliente.Destroy;
+begin
+
+end;
+
+end.

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2020/05/07 15:50:02.000.847,=C:\Users\RafaDesenvolvimento\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/05/07 16:59:54.000.359,=C:\Users\RafaDesenvolvimento\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/03/26 08:15:57.000.781,=C:\Users\RafaDesenvolvimento\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/10/06 15:26:09.000.873,=C:\Users\RafaDesenvolvimento\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/08/12 17:34:02.000.853,=C:\Users\RafaDesenvolvimento\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/08/12 17:36:23.000.679,C:\Users\RafaDesenvolvimento\Documents\Embarcadero\Studio\Projects\Unit1.dfm=D:\Cursos\PedidoVenda\UPrincipal.dfm</Transaction>
+    <Transaction>2022/08/12 17:36:23.000.679,C:\Users\RafaDesenvolvimento\Documents\Embarcadero\Studio\Projects\Unit1.pas=D:\Cursos\PedidoVenda\UPrincipal.pas</Transaction>
+    <Transaction>2022/08/12 17:36:32.000.102,C:\Users\RafaDesenvolvimento\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\Cursos\PedidoVenda\PedidoVenda.dproj</Transaction>
+    <Transaction>2022/08/12 17:37:34.000.324,=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
+    <Transaction>2022/08/12 17:38:48.000.932,D:\Cursos\PedidoVenda\Unit1.dfm=D:\Cursos\PedidoVenda\DAO\UDm.dfm</Transaction>
+    <Transaction>2022/08/12 17:38:48.000.932,D:\Cursos\PedidoVenda\Unit1.pas=D:\Cursos\PedidoVenda\DAO\UDm.pas</Transaction>
+    <Transaction>2022/08/12 17:44:22.000.487,=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
+    <Transaction>2022/08/12 17:45:27.000.194,D:\Cursos\PedidoVenda\Unit1.dfm=D:\Cursos\PedidoVenda\View\ViewPedidoVenda.dfm</Transaction>
+    <Transaction>2022/08/12 17:45:27.000.194,D:\Cursos\PedidoVenda\Unit1.pas=D:\Cursos\PedidoVenda\View\ViewPedidoVenda.pas</Transaction>
+    <Transaction>2022/08/12 22:53:39.000.866,=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
+    <Transaction>2022/08/12 22:57:13.000.291,D:\Cursos\PedidoVenda\Unit1.pas=D:\Cursos\PedidoVenda\Model\ModelCliente.pas</Transaction>
+    <Transaction>2022/08/12 23:09:13.000.791,=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
+    <Transaction>2022/08/12 23:09:24.000.887,D:\Cursos\PedidoVenda\Unit1.pas=D:\Cursos\PedidoVenda\Controller\controllerCliente.pas</Transaction>
+    <Transaction>2022/08/12 23:12:41.000.450,=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
+    <Transaction>2022/08/12 23:13:28.000.995,D:\Cursos\PedidoVenda\Unit1.pas=D:\Cursos\PedidoVenda\DAO\UFuncoesBanco.pas</Transaction>
+    <Transaction>2022/08/13 01:10:18.000.593,=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
+    <Transaction>2022/08/13 01:10:38.000.186,D:\Cursos\PedidoVenda\Unit1.pas=D:\Cursos\PedidoVenda\Model\modelProduto.pas</Transaction>
+    <Transaction>2022/08/13 01:12:14.000.916,=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
+    <Transaction>2022/08/13 01:12:47.000.984,D:\Cursos\PedidoVenda\Unit1.pas=D:\Cursos\PedidoVenda\Controller\controllerProduto.pas</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -1,0 +1,57 @@
+object FrmPrincipal: TFrmPrincipal
+  Left = 0
+  Top = 0
+  Caption = 'Principal'
+  ClientHeight = 451
+  ClientWidth = 801
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  Menu = MainMenu1
+  OldCreateOrder = False
+  WindowState = wsMaximized
+  PixelsPerInch = 96
+  TextHeight = 13
+  object barraStatus: TdxStatusBar
+    Left = 0
+    Top = 429
+    Width = 801
+    Height = 22
+    AutoSize = True
+    Panels = <
+      item
+        PanelStyleClassName = 'TdxStatusBarTextPanelStyle'
+        Text = 'Versao 1.0'
+        Width = 100
+      end
+      item
+        PanelStyleClassName = 'TdxStatusBarTextPanelStyle'
+        Width = 60
+      end>
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ExplicitLeft = 40
+  end
+  object MainMenu1: TMainMenu
+    Left = 232
+    Top = 184
+    object Cadastro1: TMenuItem
+      Caption = 'Venda'
+      object Cliente1: TMenuItem
+        Caption = 'Pedido de vendas'
+        OnClick = Cliente1Click
+      end
+    end
+  end
+  object Timer1: TTimer
+    OnTimer = Timer1Timer
+    Left = 522
+    Top = 309
+  end
+end

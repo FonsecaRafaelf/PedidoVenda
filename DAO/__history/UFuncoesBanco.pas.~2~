@@ -1,0 +1,25 @@
+﻿unit UFuncoesBanco;
+
+
+interface
+uses
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf,
+  FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async,
+  FireDAC.DApt, FireDAC.Phys, FireDAC.VCLUI.Wait, Data.DB, FireDAC.Comp.Client,
+  Vcl.Forms, System.SysUtils, System.StrUtils;
+
+
+  function CriarQuery(AConn: TFDConnection): TFDQuery;
+
+implementation
+
+function CriarQuery(AConn: TFDConnection): TFDQuery;
+var LQry: TFDQuery;
+begin
+  LQry := TFDQuery.Create(nil);
+  LQry.Connection := AConn;
+  Result := LQry;
+end;
+
+
+end.
