@@ -62,6 +62,7 @@ object FrmPedidoVenda: TFrmPedidoVenda
       Width = 89
       Height = 22
       TabOrder = 0
+      OnExit = EdtCodigoClienteExit
       OnKeyPress = EdtCodigoClienteKeyPress
     end
     object EdtNomeCliente: TEdit
@@ -128,7 +129,7 @@ object FrmPedidoVenda: TFrmPedidoVenda
     object Label9: TLabel
       Left = 512
       Top = 287
-      Width = 73
+      Width = 70
       Height = 14
       Caption = 'Valor Total:'
       Font.Charset = DEFAULT_CHARSET
@@ -271,9 +272,10 @@ object FrmPedidoVenda: TFrmPedidoVenda
     Caption = 'Gravar'
     TabOrder = 3
     TabStop = False
+    OnClick = BtnGravarClick
   end
   object BtnLimpar: TButton
-    Left = 110
+    Left = 314
     Top = 8
     Width = 96
     Height = 51
@@ -281,6 +283,25 @@ object FrmPedidoVenda: TFrmPedidoVenda
     TabOrder = 4
     TabStop = False
     OnClick = BtnLimparClick
+  end
+  object BtnConsultar: TButton
+    Left = 110
+    Top = 8
+    Width = 96
+    Height = 51
+    Caption = 'Consultar'
+    TabOrder = 5
+    TabStop = False
+  end
+  object BtnCancelar: TButton
+    Left = 212
+    Top = 8
+    Width = 96
+    Height = 51
+    Caption = 'Cancelar'
+    TabOrder = 6
+    TabStop = False
+    OnClick = BtnCancelarClick
   end
   object DSPedido: TDataSource
     DataSet = MemDataPedido

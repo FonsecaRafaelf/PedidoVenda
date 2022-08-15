@@ -14,7 +14,7 @@ Type TControllerCliente = class(TModelCliente)
 
   public
 
-  procedure ConsultaCliente(ACodigoCliente : Integer);
+  procedure ConsultaCliente;
 
 
     constructor Create(AConn : TFDConnection);
@@ -26,11 +26,11 @@ implementation
 
 { TControllerCliente }
 
-procedure TControllerCliente.ConsultaCliente(ACodigoCliente : Integer);
+procedure TControllerCliente.ConsultaCliente;
 var LQryCons : TFDQuery;
 begin
 
-  if ACodigoCliente = 0 then
+  if Codigo = 0 then
     exit;
 
   try
@@ -42,7 +42,7 @@ begin
                        'Cidade,'+
                        'uf'+
                ' FROM clientes'+
-                        ' Where codigo ='+inttostr(ACodigoCliente);
+                        ' Where codigo ='+inttostr(Codigo);
       if ConsultaMySql(LQryCons,LSql) then
       begin
         NomeCliente := LQryCons.FieldByName('nome').AsString;

@@ -1,0 +1,66 @@
+﻿unit controllerPedidoVenda;
+
+interface
+
+uses
+   FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait,
+  FireDAC.Phys.MySQLDef, FireDAC.Phys.MySQL, Data.DB, FireDAC.Comp.Client,
+  System.SysUtils, controllerCliente,modelPedidoVenda,modelCliente;
+
+Type TControllerPedidoVenda = class(TModelPedidoVenda)
+  private
+    vConexao : TFDConnection;
+  public
+    Cliente : TModelPedidoVenda;
+     procedure Cadastrar;
+
+    constructor Create(AConn : TFDConnection);
+end;
+
+
+implementation
+
+uses
+  UFuncoesBanco;
+
+
+
+
+{ TControllerPedidoVenda }
+
+procedure TControllerPedidoVenda.Cadastrar;
+var QryExec : TFDQuery;
+begin
+  try
+    QryExec := CriarQuery(vConexao);
+    try
+      QryExec.SQL.Add('INSERT INTO pedido_venda');
+      QryExec.SQL.Add('(codigocliente, valortotal, datapedido)');
+      QryExec.SQL.Add('VALUES');
+      QryExec.SQL.Add('(:codigocliente, :valortotal, :datapedido)');
+
+      QryExec.ParamByName('codigocliente').AsInteger   := CodigoCliente;
+      QryExec.ParamByName('valortotal').AsCurrency := ValorTotal;
+      QryExec.ParamByName('datapedido').AsDateTime  := Now;
+
+      QryExec.ExecSQL;
+
+      ID := vConexao.ExecSQLScalar('SELECT LAST_INSERT_ID()');
+    finally
+      FreeAndNil(QryExec);
+    end;
+
+  except on e: exception do
+    raise exception.Create('Erro ao Cadastrar PedidoVenda... ' + e.Message);
+  end;
+end;
+
+constructor TControllerPedidoVenda.Create(AConn: TFDConnection);
+begin
+  vConexao := AConn;
+  Cliente  := TControllerCliente.Create(vConexao);
+end;
+
+end.

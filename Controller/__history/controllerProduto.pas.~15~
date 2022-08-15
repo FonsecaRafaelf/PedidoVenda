@@ -1,0 +1,63 @@
+﻿unit controllerProduto;
+
+interface
+
+uses
+  modelProduto, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait,
+  FireDAC.Phys.MySQLDef, FireDAC.Phys.MySQL, Data.DB, FireDAC.Comp.Client, System.SysUtils;
+
+Type TControllerProduto = class(TModelProduto)
+  private
+    vConexao : TFDConnection;
+  public
+    procedure ConsultaProduto(ACodigoProduto : Integer);
+
+    constructor Create(AConn : TFDConnection);
+end;
+
+implementation
+
+uses
+  UFuncoesBanco;
+
+{ TControllerCliente }
+
+
+constructor TControllerProduto.Create(AConn: TFDConnection);
+begin
+  vConexao := AConn;
+end;
+
+
+procedure TControllerProduto.ConsultaProduto(ACodigoProduto : Integer);
+var LQryCons : TFDQuery;
+begin
+  if ACodigoProduto = 0 then
+    exit;
+
+  try
+    LQryCons := CriarQuery(vConexao);
+    try
+      var LSql : string;
+      LSql  := 'SELECT Codigo,'+
+                       'Descricao,'+
+                       'PrecoVenda'+
+               ' FROM produtos '+
+                       ' WHERE Codigo ='+inttostr(Codigo);
+      if ConsultaMySql(LQryCons,LSql) then
+      begin
+
+        PrecoVenda := LQryCons.FieldByName('PrecoVenda').AsCurrency;
+        Descricao  := LQryCons.FieldByName('Descricao').AsString;
+      end;
+    finally
+      FreeAndNil(LQryCons);
+    end;
+  except on e: exception do
+    raise exception.Create('Erro ao Carregar Produtos... ' + e.Message);
+  end;
+end;
+
+end.

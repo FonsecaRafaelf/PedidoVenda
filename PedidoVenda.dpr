@@ -9,7 +9,11 @@ uses
   controllerCliente in 'Controller\controllerCliente.pas',
   UFuncoesBanco in 'DAO\UFuncoesBanco.pas',
   modelProduto in 'Model\modelProduto.pas',
-  controllerProduto in 'Controller\controllerProduto.pas';
+  controllerProduto in 'Controller\controllerProduto.pas',
+  modelPedidoItem in 'Model\modelPedidoItem.pas',
+  controllerPedidoVenda in 'Controller\controllerPedidoVenda.pas',
+  modelPedidoVenda in 'Model\modelPedidoVenda.pas',
+  controllerPedidoVendaItem in 'Controller\controllerPedidoVendaItem.pas';
 
 {$R *.res}
 

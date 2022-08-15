@@ -46,6 +46,8 @@ type
     ExcluirItem1: TMenuItem;
     BtnGravar: TButton;
     BtnLimpar: TButton;
+    BtnConsultar: TButton;
+    BtnCancelar: TButton;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure BtnSairClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -63,6 +65,9 @@ type
     procedure AlterarItem1Click(Sender: TObject);
     procedure DBGrid1KeyPress(Sender: TObject; var Key: Char);
     procedure BtnLimparClick(Sender: TObject);
+    procedure BtnGravarClick(Sender: TObject);
+    procedure BtnCancelarClick(Sender: TObject);
+    procedure EdtCodigoClienteExit(Sender: TObject);
   private
     { Private declarations }
 
@@ -76,6 +81,8 @@ type
     procedure AlterarItem;
     procedure CarregaDadosAlterarItem;
     procedure ValidarDadosObrigatorioItem;
+    procedure GravaPedidoVenda;
+    function eNumerico(AValor: string): Boolean;
 
   public
     { Public declarations }
@@ -87,7 +94,7 @@ var
 implementation
 
 uses
-   UDm;
+   UDm, controllerPedidoVenda, controllerPedidoVendaItem;
 {$R *.dfm}
 
 procedure TFrmPedidoVenda.AlterarItem;
@@ -104,6 +111,36 @@ end;
 procedure TFrmPedidoVenda.AlterarItem1Click(Sender: TObject);
 begin
   CarregaDadosAlterarItem();
+end;
+
+procedure TFrmPedidoVenda.BtnCancelarClick(Sender: TObject);
+var NrPedido : string;
+FControllerPedidoVenda      : TcontrollerPedidoVenda;
+begin
+  if InputQuery('', 'Digite o Numero do Pedido a Cancelar: ', NrPedido) then
+  begin
+    if eNumerico(NrPedido) then
+    begin
+      FControllerPedidoVenda      := TcontrollerPedidoVenda.Create(DataModule1.conmysql);
+      try
+        FControllerPedidoVenda.ID := StrToInt(NrPedido);
+        FControllerPedidoVenda.DeletarPedido;
+        ShowMessage('Pedido cancelado com sucesso.');
+        InicializaComponente();
+      finally
+        freeandnil(FControllerPedidoVenda);
+      end;
+    end
+    else
+      ShowMessage('Valor Digitado não é Válido!');
+  end;
+end;
+
+procedure TFrmPedidoVenda.BtnGravarClick(Sender: TObject);
+begin
+  GravaPedidoVenda();
+  ShowMessage('Pedido gravado com sucesso.');
+  InicializaComponente();
 end;
 
 procedure TFrmPedidoVenda.BtnItemClick(Sender: TObject);
@@ -169,7 +206,8 @@ begin
   try
     FControllerCliente.NomeCliente  := '';
     FControllerCliente.cidade       := '';
-    FControllerCliente.ConsultaCliente(StrToInt(Trim(EdtCodigoCliente.Text)));
+    FControllerCliente.Codigo       := StrToInt(Trim(EdtCodigoCliente.Text));
+    FControllerCliente.ConsultaCliente();
 
     if Trim(FControllerCliente.NomeCliente) <> '' then
     begin
@@ -201,7 +239,8 @@ begin
   try
     FControllerProduto.Descricao  := '';
     FControllerProduto.PrecoVenda := 0;
-    FControllerProduto.ConsultaProduto(StrToInt(Trim(EdtCodigoProduto.Text)));
+    FControllerProduto.Codigo     := StrToInt(Trim(EdtCodigoProduto.Text));
+    FControllerProduto.ConsultaProduto();
 
     if Trim(FControllerProduto.Descricao) <> '' then
     begin
@@ -222,6 +261,12 @@ procedure TFrmPedidoVenda.DBGrid1KeyPress(Sender: TObject; var Key: Char);
 begin
   if Key=#13 then
     CarregaDadosAlterarItem();
+end;
+
+procedure TFrmPedidoVenda.EdtCodigoClienteExit(Sender: TObject);
+begin
+  if Trim(EdtCodigoCliente.Text) <> '' then
+    btnCancelar.Visible   := false;
 end;
 
 procedure TFrmPedidoVenda.EdtCodigoClienteKeyPress(Sender: TObject;
@@ -253,6 +298,17 @@ end;
 procedure TFrmPedidoVenda.edtValorTotalKeyPress(Sender: TObject; var Key: Char);
 begin
   if not (key in ['0'..'9',',',#8,#13,#03,#22]) then key := #0;
+end;
+
+function TFrmPedidoVenda.eNumerico(AValor: string): Boolean;
+var Valor: Integer;
+begin
+  try
+    Valor  := StrToInt(AValor);
+    Result := True;
+  except
+    Result := False;
+  end;
 end;
 
 procedure TFrmPedidoVenda.ExcluirItem1Click(Sender: TObject);
@@ -313,11 +369,41 @@ begin
   InicializaComponente();
 end;
 
+procedure TFrmPedidoVenda.GravaPedidoVenda;
+var FControllerPedidoVenda      : TcontrollerPedidoVenda;
+    FControllerPedidoVendaItem  : TControllerPedidoVendaItem;
+begin
+  FControllerPedidoVenda      := TcontrollerPedidoVenda.Create(DataModule1.conmysql);
+  FControllerPedidoVendaItem  := TControllerPedidoVendaItem.Create(DataModule1.conmysql);
+  try
+    FControllerPedidoVenda.CodigoCliente  := strtoint(Trim(EdtCodigoCliente.Text));
+    FControllerPedidoVenda.ValorTotal     := StrToFloatDef(lbltotal.Caption,0);
+    FControllerPedidoVenda.CadastrarPedido();
+
+    MemDataPedido.First();
+    while(not MemDataPedido.Eof) do
+    begin
+      FControllerPedidoVendaItem.NrPedido       := FControllerPedidoVenda.ID;
+      FControllerPedidoVendaItem.codigoproduto  := MemDataPedido.FieldByName('codigo').AsInteger;
+      FControllerPedidoVendaItem.Quantidade     := MemDataPedido.FieldByName('quantidade').AsCurrency;
+      FControllerPedidoVendaItem.ValorUnitario  := MemDataPedido.FieldByName('precovenda').AsCurrency;
+      FControllerPedidoVendaItem.ValorTotal     := MemDataPedido.FieldByName('precototal').AsCurrency;
+      FControllerPedidoVendaItem.InserirItemPedido();
+      MemDataPedido.Next();
+    end;
+
+  finally
+    FreeAndNil(FControllerPedidoVenda);
+    freeandnil(FControllerPedidoVendaItem);
+  end;
+end;
+
 procedure TFrmPedidoVenda.InicializaComponente;
 begin
   MemDataPedido.Close;
   MemDataPedido.Active  := true;
   lbltotal.Caption      := '0,00';
+  btnCancelar.Visible   := True;
   EdtCodigoCliente.Clear;
   EdtNomeCliente.Clear;
   EdtCidadeCliente.Clear;
