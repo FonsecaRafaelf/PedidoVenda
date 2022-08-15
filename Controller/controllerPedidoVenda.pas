@@ -16,6 +16,7 @@ Type TControllerPedidoVenda = class(TModelPedidoVenda)
     Cliente : TModelPedidoVenda;
      procedure CadastrarPedido;
      procedure DeletarPedido;
+     procedure ConsultaPedido;
 
     constructor Create(AConn : TFDConnection);
 end;
@@ -55,6 +56,39 @@ begin
 
   except on e: exception do
     raise exception.Create('Erro ao Cadastrar PedidoVenda... ' + e.Message);
+  end;
+end;
+
+procedure TControllerPedidoVenda.ConsultaPedido;
+var LQryCons : TFDQuery;
+begin
+
+  if id = 0 then
+    exit;
+
+  try
+    LQryCons := CriarQuery(vConexao);
+    Try
+      var LSql : string;
+      LSql  := 'SELECT p.numeropedido,'+
+                       'p.codigocliente,'+
+                       'p.valortotal,'+
+                       'p.datapedido '+
+               ' FROM pedido_venda as p'+
+                        ' Where p.numeropedido ='+inttostr(id);
+      if ConsultaMySql(LQryCons,LSql) then
+      begin
+        id            := LQryCons.FieldByName('numeropedido').AsInteger;
+        CodigoCliente := LQryCons.FieldByName('codigocliente').AsInteger;
+        ValorTotal    := LQryCons.FieldByName('valortotal').AsCurrency;
+      end;
+
+    Finally
+      FreeAndNil(LQryCons);
+    End;
+
+  except on e: exception do
+    raise exception.Create('Erro ao Carregar Cliente... ' + e.Message);
   end;
 end;
 

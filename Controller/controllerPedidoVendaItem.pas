@@ -14,6 +14,7 @@ Type TControllerPedidoVendaItem = class(TModelPedidoVendaItem)
 
   public
     procedure InserirItemPedido;
+    function RetornarConsulta(ANrPedido:string): TFDQuery;
 
 
 
@@ -55,6 +56,34 @@ begin
   except on e: exception do
     raise exception.Create('Erro ao Cadastrar PedidoVendaItens... ' + e.Message);
   end;
+end;
+
+function TControllerPedidoVendaItem.RetornarConsulta(ANrPedido:string): TFDQuery;
+var LQryCons : TFDQuery;
+begin
+  try
+    LQryCons := CriarQuery(vConexao);
+    Try
+      var LSql : string;
+      LSql  := 'SELECT id,'+
+                       'nrpedido,'+
+                       'codigoproduto as codigo,'+
+                       'quantidade,'+
+                       'valorunitario as precovenda,'+
+                       'valortotal as precototal '+
+               ' FROM pedido_venda_itens as p'+
+                        ' Where p.nrpedido ='+ANrPedido;
+      if ConsultaMySql(LQryCons,LSql) then
+        Result  := LQryCons;
+
+    Finally
+
+    End;
+
+  except on e: exception do
+    raise exception.Create('Erro ao Carregar Cliente... ' + e.Message);
+  end;
+
 end;
 
 end.

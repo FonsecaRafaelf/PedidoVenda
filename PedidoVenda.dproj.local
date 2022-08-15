@@ -27,12 +27,12 @@
     <Transaction>2022/08/13 01:12:47.000.984,D:\Cursos\PedidoVenda\Controller\controllerProduto.pas=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
     <Transaction>2022/08/14 09:05:26.000.800,=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
     <Transaction>2022/08/14 09:05:47.000.370,D:\Cursos\PedidoVenda\Model\modelPedidoItem.pas=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
-    <Transaction>2022/08/15 09:56:35.019,=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
-    <Transaction>2022/08/15 09:56:50.075,D:\Cursos\PedidoVenda\Controller\controllerPedidoVenda.pas=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
-    <Transaction>2022/08/15 10:00:28.960,=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
-    <Transaction>2022/08/15 10:00:42.070,D:\Cursos\PedidoVenda\Model\modelPedidoVenda.pas=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
-    <Transaction>2022/08/15 10:11:17.403,=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
-    <Transaction>2022/08/15 10:22:33.873,=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
-    <Transaction>2022/08/15 10:22:48.859,D:\Cursos\PedidoVenda\Controller\controllerPedidoVendaItem.pas=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
+    <Transaction>2022/08/15 09:56:35.000.019,=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
+    <Transaction>2022/08/15 09:56:50.000.075,D:\Cursos\PedidoVenda\Controller\controllerPedidoVenda.pas=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
+    <Transaction>2022/08/15 10:00:28.000.960,=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
+    <Transaction>2022/08/15 10:00:42.000.070,D:\Cursos\PedidoVenda\Model\modelPedidoVenda.pas=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
+    <Transaction>2022/08/15 10:11:17.000.403,=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
+    <Transaction>2022/08/15 10:22:33.000.873,=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
+    <Transaction>2022/08/15 10:22:48.000.859,D:\Cursos\PedidoVenda\Controller\controllerPedidoVendaItem.pas=D:\Cursos\PedidoVenda\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>

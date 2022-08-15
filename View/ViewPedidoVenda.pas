@@ -16,8 +16,6 @@ type
     EdtCodigoCliente: TEdit;
     EdtNomeCliente: TEdit;
     Label2: TLabel;
-    Label3: TLabel;
-    EdtCidadeCliente: TEdit;
     GbProdutos: TGroupBox;
     Label4: TLabel;
     EdtCodigoProduto: TEdit;
@@ -68,6 +66,7 @@ type
     procedure BtnGravarClick(Sender: TObject);
     procedure BtnCancelarClick(Sender: TObject);
     procedure EdtCodigoClienteExit(Sender: TObject);
+    procedure BtnConsultarClick(Sender: TObject);
   private
     { Private declarations }
 
@@ -129,6 +128,39 @@ begin
         InicializaComponente();
       finally
         freeandnil(FControllerPedidoVenda);
+      end;
+    end
+    else
+      ShowMessage('Valor Digitado não é Válido!');
+  end;
+end;
+
+procedure TFrmPedidoVenda.BtnConsultarClick(Sender: TObject);
+var NrPedido : string;
+FControllerPedidoVenda      : TcontrollerPedidoVenda;
+FControlerPedidoVendaItem   : TcontrollerPedidoVendaItem;
+begin
+  if InputQuery('', 'Digite o Numero do Pedido a consulta: ', NrPedido) then
+  begin
+    if eNumerico(NrPedido) then
+    begin
+      FControllerPedidoVenda      := TcontrollerPedidoVenda.Create(DataModule1.conmysql);
+      FControlerPedidoVendaItem   := TcontrollerPedidoVendaItem.Create(DataModule1.conmysql);
+      try
+        FControllerPedidoVenda.ID := StrToInt(NrPedido);
+        FControllerPedidoVenda.ConsultaPedido;
+
+        MemDataPedido.LoadFromDataSet(FControlerPedidoVendaItem.RetornarConsulta(NrPedido));
+
+
+        EdtCodigoCliente.Text := IntToStr(FControllerPedidoVenda.CodigoCliente);
+        lbltotal.Caption      := FormatFloat('0.00',FControllerPedidoVenda.ValorTotal);
+
+
+        EdtCodigoProduto.SetFocus;
+      finally
+        freeandnil(FControllerPedidoVenda);
+        FreeAndNil(FControlerPedidoVendaItem);
       end;
     end
     else
@@ -212,7 +244,6 @@ begin
     if Trim(FControllerCliente.NomeCliente) <> '' then
     begin
       edtnomecliente.text   := FControllerCliente.NomeCliente;
-      edtcidadecliente.text := FControllerCliente.cidade;
       EdtCodigoProduto.SetFocus;
       Exit();
     end;
@@ -266,7 +297,10 @@ end;
 procedure TFrmPedidoVenda.EdtCodigoClienteExit(Sender: TObject);
 begin
   if Trim(EdtCodigoCliente.Text) <> '' then
+  begin
     btnCancelar.Visible   := false;
+    BtnConsultar.Visible  := false;
+  end;
 end;
 
 procedure TFrmPedidoVenda.EdtCodigoClienteKeyPress(Sender: TObject;
@@ -404,9 +438,9 @@ begin
   MemDataPedido.Active  := true;
   lbltotal.Caption      := '0,00';
   btnCancelar.Visible   := True;
+  BtnConsultar.Visible  := True;
   EdtCodigoCliente.Clear;
   EdtNomeCliente.Clear;
-  EdtCidadeCliente.Clear;
   LimparItem();
   EdtCodigoCliente.SetFocus;
 end;

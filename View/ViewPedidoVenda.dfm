@@ -49,13 +49,6 @@ object FrmPedidoVenda: TFrmPedidoVenda
       Height = 14
       Caption = 'Nome'
     end
-    object Label3: TLabel
-      Left = 483
-      Top = 24
-      Width = 36
-      Height = 14
-      Caption = 'Cidade'
-    end
     object EdtCodigoCliente: TEdit
       Left = 16
       Top = 42
@@ -68,20 +61,11 @@ object FrmPedidoVenda: TFrmPedidoVenda
     object EdtNomeCliente: TEdit
       Left = 108
       Top = 42
-      Width = 373
+      Width = 614
       Height = 22
       TabStop = False
       Enabled = False
       TabOrder = 1
-    end
-    object EdtCidadeCliente: TEdit
-      Left = 483
-      Top = 42
-      Width = 239
-      Height = 22
-      TabStop = False
-      Enabled = False
-      TabOrder = 2
     end
   end
   object GbProdutos: TGroupBox
@@ -292,6 +276,7 @@ object FrmPedidoVenda: TFrmPedidoVenda
     Caption = 'Consultar'
     TabOrder = 5
     TabStop = False
+    OnClick = BtnConsultarClick
   end
   object BtnCancelar: TButton
     Left = 212
