@@ -1,5 +1,5 @@
 ﻿# Host: localhost:3390  (Version 5.5.11)
-# Date: 2022-08-17 17:24:09
+# Date: 2022-08-17 17:30:35
 # Generator: MySQL-Front 6.1  (Build 1.26)
 
 
@@ -39,7 +39,6 @@ CREATE TABLE `pedido_venda` (
 # Data for table "pedido_venda"
 #
 
-INSERT INTO `pedido_venda` VALUES (2,1,0.00,'2022-08-15 10:33:15'),(4,1,38.99,'2022-08-15 14:10:15'),(5,1,71.40,'2022-08-15 16:06:10');
 
 #
 # Structure for table "pedido_venda_itens"
@@ -61,7 +60,6 @@ CREATE TABLE `pedido_venda_itens` (
 # Data for table "pedido_venda_itens"
 #
 
-INSERT INTO `pedido_venda_itens` VALUES (4,4,2,1.000000,10.000000,10.000000),(5,4,3,1.000000,8.990000,8.990000),(6,4,1,1.000000,20.000000,20.000000),(7,5,1,2.000000,20.000000,40.000000),(8,5,3,3.000000,3.800000,11.400000),(9,5,1,1.000000,20.000000,20.000000);
 
 #
 # Structure for table "produtos"
