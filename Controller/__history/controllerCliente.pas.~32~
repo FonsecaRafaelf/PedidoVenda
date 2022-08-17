@@ -6,18 +6,17 @@ uses
   modelCliente, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
   FireDAC.Stan.Pool,UFuncoesBanco, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait,
-  FireDAC.Phys.MySQLDef, FireDAC.Phys.MySQL, Data.DB, FireDAC.Comp.Client, System.SysUtils;
+  FireDAC.Phys.MySQLDef, FireDAC.Phys.MySQL, Data.DB, FireDAC.Comp.Client, System.SysUtils,
+  UFuncoesBanco;
 
-Type TControllerCliente = class
+Type TControllerCliente = class(TModelCliente)
   private
     vConexao : TFDConnection;
-    FModelCliente: TModelCliente;
 
   public
+  FuncoesBanco                : TFuncoesBanco;
 
-  property modelCliente : TModelCliente read FModelCliente write FModelCliente;
-
-  procedure ConsultarCliente(ACodigoCliente : Integer);
+  procedure ConsultaCliente;
 
 
     constructor Create(AConn : TFDConnection);
@@ -29,11 +28,11 @@ implementation
 
 { TControllerCliente }
 
-procedure TControllerCliente.ConsultarCliente(ACodigoCliente : Integer);
+procedure TControllerCliente.ConsultaCliente;
 var LQryCons : TFDQuery;
 begin
 
-  if ACodigoCliente = 0 then
+  if Codigo = 0 then
     exit;
 
   try
@@ -45,12 +44,12 @@ begin
                        'Cidade,'+
                        'uf'+
                ' FROM clientes'+
-                        ' Where codigo ='+inttostr(ACodigoCliente);
+                        ' Where codigo ='+inttostr(Codigo);
       if ConsultaMySql(LQryCons,LSql) then
       begin
-        LModelCliente.NomeCliente := LQryCons.FieldByName('nome').AsString;
-        LModelCliente.modelCliente.Cidade      := LQryCons.FieldByName('cidade').AsString;
-        LModelCliente.modelCliente.UF          := LQryCons.FieldByName('uf').AsString;
+        NomeCliente := LQryCons.FieldByName('nome').AsString;
+        Cidade      := LQryCons.FieldByName('cidade').AsString;
+        UF          := LQryCons.FieldByName('uf').AsString;
       end;
 
     Finally
@@ -65,7 +64,6 @@ end;
 constructor TControllerCliente.Create(AConn: TFDConnection);
 begin
    vConexao := AConn;
-
 end;
 
 destructor TControllerCliente.Destroy;
