@@ -6,13 +6,15 @@ uses
   modelCliente, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
   FireDAC.Stan.Pool,UFuncoesBanco, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait,
-  FireDAC.Phys.MySQLDef, FireDAC.Phys.MySQL, Data.DB, FireDAC.Comp.Client, System.SysUtils;
+  FireDAC.Phys.MySQLDef, FireDAC.Phys.MySQL, Data.DB, FireDAC.Comp.Client, System.SysUtils,
+  UFuncoesBanco;
 
 Type TControllerCliente = class(TModelCliente)
   private
     vConexao : TFDConnection;
 
   public
+  FuncoesBanco                : TFuncoesBanco;
 
   procedure ConsultaCliente;
 

@@ -304,14 +304,14 @@ object FrmPedidoVenda: TFrmPedidoVenda
     object MemDataPedidodescricao: TStringField
       FieldName = 'descricao'
     end
-    object MemDataPedidoquantidade: TCurrencyField
-      FieldName = 'quantidade'
-    end
     object MemDataPedidoprecovenda: TCurrencyField
       FieldName = 'precovenda'
     end
     object MemDataPedidoprecototal: TCurrencyField
       FieldName = 'precototal'
+    end
+    object MemDataPedidoquantidade: TCurrencyField
+      FieldName = 'quantidade'
     end
   end
   object PopupMenu1: TPopupMenu

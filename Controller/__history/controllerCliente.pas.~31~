@@ -8,16 +8,13 @@ uses
   FireDAC.Stan.Pool,UFuncoesBanco, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait,
   FireDAC.Phys.MySQLDef, FireDAC.Phys.MySQL, Data.DB, FireDAC.Comp.Client, System.SysUtils;
 
-Type TControllerCliente = class
+Type TControllerCliente = class(TModelCliente)
   private
     vConexao : TFDConnection;
-    FModelCliente: TModelCliente;
 
   public
 
-  property modelCliente : TModelCliente read FModelCliente write FModelCliente;
-
-  procedure ConsultarCliente(ACodigoCliente : Integer);
+  procedure ConsultaCliente;
 
 
     constructor Create(AConn : TFDConnection);
@@ -29,11 +26,11 @@ implementation
 
 { TControllerCliente }
 
-procedure TControllerCliente.ConsultarCliente(ACodigoCliente : Integer);
+procedure TControllerCliente.ConsultaCliente;
 var LQryCons : TFDQuery;
 begin
 
-  if ACodigoCliente = 0 then
+  if Codigo = 0 then
     exit;
 
   try
@@ -45,15 +42,14 @@ begin
                        'Cidade,'+
                        'uf'+
                ' FROM clientes'+
-                        ' Where codigo ='+inttostr(ACodigoCliente);
-      if not ConsultaMySql(LQryCons,LSql) then
+                        ' Where codigo ='+inttostr(Codigo);
+      if ConsultaMySql(LQryCons,LSql) then
       begin
-        //ShowMessage('Cliente não cadastrado.');
-        Exit();
+        NomeCliente := LQryCons.FieldByName('nome').AsString;
+        Cidade      := LQryCons.FieldByName('cidade').AsString;
+        UF          := LQryCons.FieldByName('uf').AsString;
       end;
-      fmodelCliente.NomeCliente := LQryCons.FieldByName('nome').AsString;
-      modelCliente.Cidade      := LQryCons.FieldByName('cidade').AsString;
-      modelCliente.UF          := LQryCons.FieldByName('uf').AsString;
+
     Finally
       FreeAndNil(LQryCons);
     End;
@@ -66,7 +62,6 @@ end;
 constructor TControllerCliente.Create(AConn: TFDConnection);
 begin
    vConexao := AConn;
-
 end;
 
 destructor TControllerCliente.Destroy;

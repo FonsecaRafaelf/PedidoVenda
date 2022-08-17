@@ -138,15 +138,20 @@ end;
 procedure TFrmPedidoVenda.BtnConsultarClick(Sender: TObject);
 var NrPedido : string;
 FControllerPedidoVenda      : TcontrollerPedidoVenda;
+FControlerPedidoVendaItem   : TcontrollerPedidoVendaItem;
 begin
   if InputQuery('', 'Digite o Numero do Pedido a consulta: ', NrPedido) then
   begin
     if eNumerico(NrPedido) then
     begin
       FControllerPedidoVenda      := TcontrollerPedidoVenda.Create(DataModule1.conmysql);
+      FControlerPedidoVendaItem   := TcontrollerPedidoVendaItem.Create(DataModule1.conmysql);
       try
         FControllerPedidoVenda.ID := StrToInt(NrPedido);
         FControllerPedidoVenda.ConsultaPedido;
+
+        MemDataPedido.LoadFromDataSet(FControlerPedidoVendaItem.RetornarConsulta(NrPedido));
+
 
         EdtCodigoCliente.Text := IntToStr(FControllerPedidoVenda.CodigoCliente);
         lbltotal.Caption      := FormatFloat('0.00',FControllerPedidoVenda.ValorTotal);
@@ -155,6 +160,7 @@ begin
         EdtCodigoProduto.SetFocus;
       finally
         freeandnil(FControllerPedidoVenda);
+        FreeAndNil(FControlerPedidoVendaItem);
       end;
     end
     else

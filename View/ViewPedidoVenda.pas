@@ -33,7 +33,6 @@ type
     MemDataPedido: TdxMemData;
     MemDataPedidocodigo: TIntegerField;
     MemDataPedidodescricao: TStringField;
-    MemDataPedidoquantidade: TCurrencyField;
     MemDataPedidoprecovenda: TCurrencyField;
     MemDataPedidoprecototal: TCurrencyField;
     Label9: TLabel;
@@ -46,6 +45,7 @@ type
     BtnLimpar: TButton;
     BtnConsultar: TButton;
     BtnCancelar: TButton;
+    MemDataPedidoquantidade: TCurrencyField;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure BtnSairClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
