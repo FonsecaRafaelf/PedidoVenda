@@ -293,29 +293,29 @@ object FrmPedidoVenda: TFrmPedidoVenda
     Left = 232
     Top = 290
   end
-  object MemDataPedido: TdxMemData
+  object MemDataPedidoOld: TdxMemData
     Indexes = <>
     SortOptions = []
     Left = 352
     Top = 274
-    object MemDataPedidocodigo: TIntegerField
+    object MemDataPedidoOldcodigo: TIntegerField
       FieldName = 'codigo'
     end
-    object MemDataPedidodescricao: TStringField
+    object MemDataPedidoOlddescricao: TStringField
       FieldName = 'descricao'
     end
-    object MemDataPedidoprecovenda: TCurrencyField
+    object MemDataPedidoOldprecovenda: TCurrencyField
       FieldName = 'precovenda'
     end
-    object MemDataPedidoprecototal: TCurrencyField
+    object MemDataPedidoOldprecototal: TCurrencyField
       FieldName = 'precototal'
     end
-    object MemDataPedidoquantidade: TCurrencyField
+    object MemDataPedidoOldquantidade: TCurrencyField
       FieldName = 'quantidade'
     end
   end
   object PopupMenu1: TPopupMenu
-    Left = 400
+    Left = 464
     Top = 266
     object AlterarItem1: TMenuItem
       Caption = 'Alterar Item'
@@ -329,6 +329,41 @@ object FrmPedidoVenda: TFrmPedidoVenda
       Caption = 'Excluir Item'
       ShortCut = 46
       OnClick = ExcluirItem1Click
+    end
+  end
+  object MemDataPedido: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 296
+    Top = 330
+    object MemDataPedidocodigo: TIntegerField
+      FieldName = 'codigo'
+    end
+    object MemDataPedidodescricao: TStringField
+      FieldName = 'descricao'
+    end
+    object MemDataPedidoprecototal: TFMTBCDField
+      FieldName = 'precototal'
+      DisplayFormat = '0.00'
+      EditFormat = '0.00'
+      Size = 3
+    end
+    object MemDataPedidoprecovenda: TFMTBCDField
+      FieldName = 'precovenda'
+      DisplayFormat = '0.00'
+      EditFormat = '0.00'
+      Size = 3
+    end
+    object MemDataPedidoquantidade: TFMTBCDField
+      FieldName = 'quantidade'
+      DisplayFormat = '0.00'
+      EditFormat = '0.00'
+      Size = 3
     end
   end
 end

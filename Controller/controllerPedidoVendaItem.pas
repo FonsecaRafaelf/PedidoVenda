@@ -65,14 +65,16 @@ begin
     LQryCons := CriarQuery(vConexao);
     Try
       var LSql : string;
-      LSql  := 'SELECT id,'+
-                       'nrpedido,'+
-                       'codigoproduto as codigo,'+
-                       'quantidade,'+
-                       'valorunitario as precovenda,'+
-                       'valortotal as precototal '+
-               ' FROM pedido_venda_itens as p'+
-                        ' Where p.nrpedido ='+ANrPedido;
+      LSql  := 'SELECT  v.id,'+
+                       'v.nrpedido,'+
+                       'v.codigoproduto as codigo,'+
+                       'v.quantidade,'+
+                       'v.valorunitario as precovenda,'+
+                       'v.valortotal as precototal,'+
+                       'p.descricao '+
+               ' FROM pedido_venda_itens as v'+
+               ' INNER JOIN produtos as p on p.codigo=v.codigoproduto '+
+                        ' Where v.nrpedido ='+ANrPedido;
       if ConsultaMySql(LQryCons,LSql) then
         Result  := LQryCons;
 

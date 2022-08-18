@@ -6,7 +6,10 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Data.DB, Vcl.Grids,
   Vcl.DBGrids, dxmdaset,ModelCliente,controllerCliente,modelProduto,controllerProduto,
-  Vcl.Menus;
+  Vcl.Menus, Datasnap.DBClient, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  FireDAC.Stan.Async, FireDAC.DApt;
 
 type
   TFrmPedidoVenda = class(TForm)
@@ -30,11 +33,11 @@ type
     BtnItem: TButton;
     DBGrid1: TDBGrid;
     DSPedido: TDataSource;
-    MemDataPedido: TdxMemData;
-    MemDataPedidocodigo: TIntegerField;
-    MemDataPedidodescricao: TStringField;
-    MemDataPedidoprecovenda: TCurrencyField;
-    MemDataPedidoprecototal: TCurrencyField;
+    MemDataPedidoOld: TdxMemData;
+    MemDataPedidoOldcodigo: TIntegerField;
+    MemDataPedidoOlddescricao: TStringField;
+    MemDataPedidoOldprecovenda: TCurrencyField;
+    MemDataPedidoOldprecototal: TCurrencyField;
     Label9: TLabel;
     lbltotal: TLabel;
     PopupMenu1: TPopupMenu;
@@ -45,7 +48,13 @@ type
     BtnLimpar: TButton;
     BtnConsultar: TButton;
     BtnCancelar: TButton;
-    MemDataPedidoquantidade: TCurrencyField;
+    MemDataPedidoOldquantidade: TCurrencyField;
+    MemDataPedido: TFDMemTable;
+    MemDataPedidocodigo: TIntegerField;
+    MemDataPedidodescricao: TStringField;
+    MemDataPedidoprecototal: TFMTBCDField;
+    MemDataPedidoprecovenda: TFMTBCDField;
+    MemDataPedidoquantidade: TFMTBCDField;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure BtnSairClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -150,8 +159,8 @@ begin
         FControllerPedidoVenda.ID := StrToInt(NrPedido);
         FControllerPedidoVenda.ConsultaPedido;
 
-        MemDataPedido.LoadFromDataSet(FControlerPedidoVendaItem.RetornarConsulta(NrPedido));
-
+        //MemDataPedido.LoadFromDataSet(FControlerPedidoVendaItem.RetornarConsulta(NrPedido));
+        MemDataPedido.CloneCursor(FControlerPedidoVendaItem.RetornarConsulta(NrPedido));
 
         EdtCodigoCliente.Text := IntToStr(FControllerPedidoVenda.CodigoCliente);
         lbltotal.Caption      := FormatFloat('0.00',FControllerPedidoVenda.ValorTotal);
@@ -434,6 +443,7 @@ end;
 
 procedure TFrmPedidoVenda.InicializaComponente;
 begin
+
   MemDataPedido.Close;
   MemDataPedido.Active  := true;
   lbltotal.Caption      := '0,00';
