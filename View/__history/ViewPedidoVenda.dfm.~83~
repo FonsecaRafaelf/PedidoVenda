@@ -347,14 +347,23 @@ object FrmPedidoVenda: TFrmPedidoVenda
     object MemDataPedidodescricao: TStringField
       FieldName = 'descricao'
     end
-    object MemDataPedidoprecototal: TCurrencyField
+    object MemDataPedidoprecototal: TFMTBCDField
       FieldName = 'precototal'
+      DisplayFormat = '0.00'
+      EditFormat = '0.00'
+      Size = 3
     end
-    object MemDataPedidoquantidade: TCurrencyField
-      FieldName = 'quantidade'
-    end
-    object MemDataPedidoprecovenda: TFloatField
+    object MemDataPedidoprecovenda: TFMTBCDField
       FieldName = 'precovenda'
+      DisplayFormat = '0.00'
+      EditFormat = '0.00'
+      Size = 3
+    end
+    object MemDataPedidoquantidade: TFMTBCDField
+      FieldName = 'quantidade'
+      DisplayFormat = '0.00'
+      EditFormat = '0.00'
+      Size = 3
     end
   end
 end

@@ -293,27 +293,6 @@ object FrmPedidoVenda: TFrmPedidoVenda
     Left = 232
     Top = 290
   end
-  object MemDataPedidoOld: TdxMemData
-    Indexes = <>
-    SortOptions = []
-    Left = 352
-    Top = 274
-    object MemDataPedidoOldcodigo: TIntegerField
-      FieldName = 'codigo'
-    end
-    object MemDataPedidoOlddescricao: TStringField
-      FieldName = 'descricao'
-    end
-    object MemDataPedidoOldprecovenda: TCurrencyField
-      FieldName = 'precovenda'
-    end
-    object MemDataPedidoOldprecototal: TCurrencyField
-      FieldName = 'precototal'
-    end
-    object MemDataPedidoOldquantidade: TCurrencyField
-      FieldName = 'quantidade'
-    end
-  end
   object PopupMenu1: TPopupMenu
     Left = 464
     Top = 266
